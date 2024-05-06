@@ -3,14 +3,14 @@
 #define MAX_SIZE 500
 
 void displayMenu();
-void loadNewImage(int image[MAX_SIZE][MAX_SIZE], int *size);
+void loadImage(int image[MAX_SIZE][MAX_SIZE], int *size);
 void displayImage(int image[MAX_SIZE][MAX_SIZE], int size);
 void editImage(int image[MAX_SIZE][MAX_SIZE], int size);
 void cropImage(int image[MAX_SIZE][MAX_SIZE], int *size);
 void dimImage(int image[MAX_SIZE][MAX_SIZE], int size);
 void brightenImage(int image[MAX_SIZE][MAX_SIZE], int size);
 void saveImage(int image[MAX_SIZE][MAX_SIZE], int size);
-void rotateImage90Degrees(int image[MAX_SIZE][MAX_SIZE], int size);
+void rotateImage(int image[MAX_SIZE][MAX_SIZE], int size);
 
 int main() {
     int image[MAX_SIZE][MAX_SIZE];
@@ -24,7 +24,7 @@ int main() {
 
         switch (choice) {
             case 1:
-                loadNewImage(image, &size);
+                loadImage(image, &size);
                 break;
             case 2:
                 displayImage(image, size);
@@ -42,7 +42,7 @@ int main() {
 
     return 0;
 }
-
+//main menu
 void displayMenu() {
     printf("\nMain Menu:\n");
     printf("1. Load a new image\n");
@@ -51,8 +51,8 @@ void displayMenu() {
     printf("4. Exit\n");
     printf("Enter your choice: ");
 }
-
-void loadNewImage(int image[MAX_SIZE][MAX_SIZE], int *size) {
+//load image into program
+void loadImage(int image[MAX_SIZE][MAX_SIZE], int *size) {
     FILE *file;
     char filename[100];
     char ch;
@@ -87,7 +87,7 @@ void loadNewImage(int image[MAX_SIZE][MAX_SIZE], int *size) {
     printf("\nImage loaded successfully.\n");
 }
 
-
+//display image on screen
 void displayImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     int i, j;
     int last_row = 0;
@@ -126,7 +126,7 @@ void displayImage(int image[MAX_SIZE][MAX_SIZE], int size) {
 
 
 
-
+//secondary menu and edit options
 void editImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     int choice;
 
@@ -156,7 +156,7 @@ void editImage(int image[MAX_SIZE][MAX_SIZE], int size) {
                 displayImage(image, size);
                 break;
             case 4:
-                rotateImage90Degrees(image, size);
+                rotateImage(image, size);
                 displayImage(image, size);
                 break;
             case 5:
@@ -164,51 +164,51 @@ void editImage(int image[MAX_SIZE][MAX_SIZE], int size) {
                 displayImage(image, size);
                 break;
             case 6:
-                printf("Returning to main menu...\n");
+                printf("Returning to main menu.\n");
                 break;
             default:
                 printf("Invalid choice! Please try again.\n");
         }
     } while (choice != 6);
 }
-
+//crop the image based on a size and defined bounds
 void cropImage(int image[MAX_SIZE][MAX_SIZE], int *size) {
-    int new_size;
-    int row_start, row_end, col_start, col_end;
+    int newSize;
+    int rowStart, rowEnd, colStart, colEnd;
     int i, j;
 
     printf("Enter the size of the cropped image: ");
-    scanf("%d", &new_size);
+    scanf("%d", &newSize);
 
     printf("Enter the starting row index: ");
-    scanf("%d", &row_start);
+    scanf("%d", &rowStart);
     printf("Enter the ending row index: ");
-    scanf("%d", &row_end);
+    scanf("%d", &rowEnd);
     printf("Enter the starting column index: ");
-    scanf("%d", &col_start);
+    scanf("%d", &colStart);
     printf("Enter the ending column index: ");
-    scanf("%d", &col_end);
+    scanf("%d", &colEnd);
 
 
-    if (row_start < 0 || row_end >= *size || col_start < 0 || col_end >= *size || row_start > row_end || col_start > col_end) {
-        printf("Invalid crop indices.\n");
+    if (rowStart < 0 || rowEnd >= *size || colStart < 0 || colEnd >= *size || rowStart > rowEnd || colStart > colEnd) {
+        printf("Invalid crop bounds.\n");
         return;
     }
 
 
-    *size = new_size;
+    *size = newSize;
 
 
-    for (i = 0; i < new_size; i++) {
-        for (j = 0; j < new_size; j++) {
-            image[i][j] = image[row_start + i][col_start + j];
+    for (i = 0; i < newSize; i++) {
+        for (j = 0; j < newSize; j++) {
+            image[i][j] = image[rowStart + i][colStart + j];
         }
     }
 
     printf("Image cropped successfully.\n");
 }
 
-
+//darken image
 void dimImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     int i, j;
 
@@ -223,7 +223,7 @@ void dimImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     printf("Image dimmed successfully.\n");
 }
 
-
+//brighten image
 void brightenImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     int i, j;
 
@@ -238,8 +238,8 @@ void brightenImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     printf("Image brightened successfully.\n");
 }
 
-
-void rotateImage90Degrees(int image[MAX_SIZE][MAX_SIZE], int size) {
+//extra credit
+void rotateImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     int temp[MAX_SIZE][MAX_SIZE];
     int i, j;
 
@@ -257,10 +257,10 @@ void rotateImage90Degrees(int image[MAX_SIZE][MAX_SIZE], int size) {
         }
     }
 
-    printf("Image rotated 90 degrees to the right successfully.\n");
+    printf("Image rotated 90 degrees successfully.\n");
 }
 
-
+//saving to new file
 void saveImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     FILE *file;
     char filename[100];
