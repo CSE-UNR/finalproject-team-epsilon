@@ -68,22 +68,16 @@ void loadNewImage(int image[MAX_SIZE][MAX_SIZE], int *size) {
         return;
     }
 
-    // Read the image data from the file character by character
     while ((ch = fgetc(file)) != EOF && row < MAX_SIZE) {
         if (ch >= '0' && ch <= '4') {
-            // Populate the image array
             image[row][col++] = ch - '0';
         }
 
-        // Move to the next row if newline character encountered
         if (ch == '\n') {
-            // Update the size if the current row length exceeds the previous maximum
             if (col > *size) {
                 *size = col;
             }
-            // Move to the next row
             row++;
-            // Reset column index for the next row
             col = 0;
         }
     }
@@ -98,7 +92,6 @@ void displayImage(int image[MAX_SIZE][MAX_SIZE], int size) {
     int i, j;
     int last_row = 0;
 
-    // Find the index of the last row with content
     for (i = size - 1; i >= 0; i--) {
         for (j = 0; j < size; j++) {
             if (image[i][j] != 0) {
