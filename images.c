@@ -113,9 +113,9 @@ void displayImage(int image[MAX_SIZE][MAX_SIZE], int size) {
             if (image[i][j] == 0) {
                 printf(" ");
             } else if (image[i][j] == 1) {
-                printf("o");
-            } else if (image[i][j] == 2) {
                 printf(".");
+            } else if (image[i][j] == 2) {
+                printf("o");
             } else if (image[i][j] == 3) {
                 printf("O");
             } else if (image[i][j] == 4) {
