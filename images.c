@@ -1,3 +1,6 @@
+// Authors: Dallas Ponzo & Terron Mogensen
+// Date: 05/05/2024
+// Objective: Display an image from a file and give the user options to edit and save it. 
 #include <stdio.h>
 
 #define MAX_SIZE 500
